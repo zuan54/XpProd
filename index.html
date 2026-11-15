@@ -445,7 +445,9 @@ a[x-apple-data-detectors],a[x-apple-data-detectors] *, .x-apple-data-detectors, 
 /* Light video facade: postpone third-party embeds until the viewer chooses a clip. */
 .vimeo-facade{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;width:100%;height:100%;padding:18px;border:0;background:radial-gradient(ellipse at 50% 38%,#3479d9 0%,#1b4d99 52%,#102d61 100%);color:#fff;text-align:center;font:700 13px Tahoma,Arial,sans-serif;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .vimeo-facade:hover{background:radial-gradient(ellipse at 50% 38%,#4388e8 0%,#215aaf 52%,#13366e 100%)}
-.vimeo-facade:focus-visible{outline:3px solid #ffbd43;outline-offset:-4px}
+.vimeo-facade-thumb{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;object-position:center;background:#173d78}
+.vimeo-facade::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,#06152a1c 0%,#06152a0a 36%,#06152a9c 100%);pointer-events:none}
+.vimeo-facade-play,.vimeo-facade-label,.vimeo-facade-hint{position:relative;z-index:2}
 .vimeo-facade-play{display:grid;place-items:center;width:60px;height:60px;flex:none;padding-left:4px;border:1px solid #ffffffc9;border-radius:50%;background:#10213dcc;box-shadow:0 5px 18px #061b4880;font:700 25px Arial,sans-serif}
 .vimeo-facade-label{max-width:34ch;line-height:1.4;text-shadow:0 1px 3px #061b48}
 .vimeo-facade-hint{font-size:10px;font-weight:500;color:#d7e8ff;opacity:.9}
@@ -525,6 +527,8 @@ const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];con
   const launch=document.createElement('button');launch.type='button';launch.className='vimeo-facade';
   launch.setAttribute('aria-label','Воспроизвести видео: '+title);
   launch.innerHTML='<span class="vimeo-facade-play" aria-hidden="true">▶</span><span class="vimeo-facade-label">'+title+'</span><span class="vimeo-facade-hint">Нажмите, чтобы загрузить видео</span>';
+  const videoId=(new URL(videoUrl,document.baseURI)).pathname.match(/\/video\/(\d+)/)?.[1];
+  if(videoId){const poster=document.createElement('img');poster.className='vimeo-facade-thumb';poster.alt='';poster.loading='lazy';poster.decoding='async';poster.setAttribute('aria-hidden','true');poster.src='assets/thumbs/vimeo-'+videoId+'.webp';poster.onerror=()=>poster.remove();launch.prepend(poster)}
   launch.addEventListener('click',()=>{
     if(launch.dataset.loading==='1')return;launch.dataset.loading='1';launch.disabled=true;
     const url=new URL(videoUrl);url.searchParams.set('autoplay','1');url.searchParams.set('controls','1');url.searchParams.set('fullscreen','1');url.searchParams.set('playsinline','1');url.searchParams.set('title','0');url.searchParams.set('byline','0');url.searchParams.set('portrait','0');
