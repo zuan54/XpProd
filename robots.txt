@@ -1,5 +1,3 @@
 User-agent: *
 Allow: /
-
-# После замены домена замените URL ниже на свой фактический адрес.
-Sitemap: https://YOUR-DOMAIN.example/sitemap.xml
+Sitemap: https://zuan54.github.io/XpProd/sitemap.xml

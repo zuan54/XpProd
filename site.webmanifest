@@ -2,13 +2,14 @@
   "name": "XPprod — видеопродакшн Екатеринбург",
   "short_name": "XPprod",
   "lang": "ru-RU",
-  "start_url": "/",
+  "start_url": "/XpProd/",
+  "scope": "/XpProd/",
   "display": "standalone",
   "background_color": "#1759cc",
   "theme_color": "#1759cc",
   "icons": [
     {
-      "src": "/favicon.svg",
+      "src": "/XpProd/favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml"
     }
